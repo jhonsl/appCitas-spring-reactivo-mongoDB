@@ -27,7 +27,7 @@ public class citasDTOReactiva {
 
     private String horaReservaCita;
 
-    private String estadoReservaCita;
+    private boolean estadoReservaCita;
 
     public String getId() {
         return id;
@@ -93,15 +93,13 @@ public class citasDTOReactiva {
         this.horaReservaCita = horaReservaCita;
     }
 
-    public String getEstadoReservaCita() {
+    public boolean getEstadoReservaCita() {
         return estadoReservaCita;
     }
 
-    public void setEstadoReservaCita(String estadoReservaCita) {
+    public void setEstadoReservaCita(boolean estadoReservaCita) {
         this.estadoReservaCita = estadoReservaCita;
     }
 
     //private Date sendedDate = new Date();
-
-
 }

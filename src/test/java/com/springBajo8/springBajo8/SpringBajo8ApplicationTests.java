@@ -9,5 +9,4 @@ class SpringBajo8ApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

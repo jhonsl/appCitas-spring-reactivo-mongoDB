@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDate;
+
 @RestController
 public class citasReactivaResource {
 
@@ -48,4 +50,24 @@ public class citasReactivaResource {
         return this.icitasReactivaService.findAll();
     }
 
+    @PutMapping("/citasReactivas/cancelarCitas/{idCita}")
+    private Mono<ResponseEntity<citasDTOReactiva>> cancelCita(@PathVariable("idCita") String id) {
+        return this.icitasReactivaService.cancelCita(id)
+                .flatMap(citasDTOReactiva -> Mono.just(ResponseEntity.ok(citasDTOReactiva)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    }
+
+    @GetMapping(value = "/citasReactivas/getCitaByFecha/{hora}")
+    private Mono<ResponseEntity<citasDTOReactiva>> getCitaByDate(@PathVariable("hora")String hora, @RequestBody LocalDate fecha) {
+        return this.icitasReactivaService.findCita(fecha, hora)
+                .flatMap(citasDTOReactiva -> Mono.just(ResponseEntity.ok(citasDTOReactiva)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    }
+
+    @GetMapping(value = "/citasReactivas/medico/{name}")
+    private Mono<ResponseEntity<citasDTOReactiva>> getCitaByMedico(@PathVariable("name") String name) {
+        return this.icitasReactivaService.findByNombreMedico(name)
+                .flatMap(citasDTOReactiva -> Mono.just(ResponseEntity.ok(citasDTOReactiva)))
+                .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
+    }
 }
